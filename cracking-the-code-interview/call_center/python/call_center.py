@@ -24,7 +24,7 @@ class CallCenter:
             self.respondent_queue.pop(0).take_call(call)
         else:
             self.call_queue.append(call)
-            
+
 class Call:
     
     def __init__(self, issue):
@@ -35,11 +35,11 @@ class Call:
         if handled:
             self.issue = None
         self.employee.finish_call(handled)
-        
+
     def apologize_and_handup(self):
         # "Try calling our competitor."
         self.employee = None
-        
+
 class Employee(object):
     
     def __init__(self, name, manager):
@@ -66,10 +66,12 @@ class Employee(object):
             else:
                 call.apologize_and_hangup()
         self.call = None
+
 class Respondent(Employee):
     def finish_call(self, handled=True):
         super().finish_call(handled)
         self.callcenter.route_respondent(self)
+
 class Manager(Employee):
     pass
 
@@ -78,7 +80,6 @@ class Director(Employee):
         super().__init__(name, None)
 
 import unittest
-
 class Test(unittest.TestCase):
     def test_call_center(self):
         lashaun = Director('Lashaun')
